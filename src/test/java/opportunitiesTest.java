@@ -38,14 +38,39 @@ public class opportunitiesTest {
         driver = new ChromeDriver();
         LoginPage loginpage = new LoginPage(driver);
 
-        dbhelper.setUp();
-        dbhelper.insertToDB(); // insertdata
+        dbhelper.setUp();  // establish Db connection
+        dbhelper.insertToDB(); // insertdata into the required tables
 
         //Go to www.swtestacademy.com
         driver.navigate().to(testURL);
         HomePage home = loginPage.loginWithValidCredentials("testuser_1", "test123!!")
     }
 
+
+    private static String queryDBForResultSet(){
+
+        String result;
+        try{
+
+            String query = "select opportunityStage from opportunities where oppotunityName =” + uniqueOpportunityName + “‘”;
+            // Get the contents of userinfo table from DB
+            ResultSet res = stmt.executeQuery(query);
+            // Print the result untill all the records are printe
+            // res.next() returns true if there is any next record else returns false
+            while (res.next())
+            {
+                result = res.getString(1));
+
+            }
+        }
+        catch(Exception e)
+        {
+
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
 
     //-----------------------------------Tests-----------------------------------
@@ -100,31 +125,15 @@ public class opportunitiesTest {
 
     @Test
 
-    public void DBTestAfterEdit() {
+    public void DBTestAfterEdit() throws Exception{
         String valueBeforeUpdate;
         String valueAfterUpdate;
         Map<String,String> valuesToUpdate = new HashMap();
 
         valuesToUpdate.put("stage" , "closed won ");
 
-        try{
+        valueBeforeUpdate = queryDBForResultSet();
 
-            String query = "select opportunityStage from opportunities where oppotunityName =” + uniqueOpportunityName + “‘”;
-            // Get the contents of userinfo table from DB
-            ResultSet res = stmt.executeQuery(query);
-            // Print the result untill all the records are printe
-            // res.next() returns true if there is any next record else returns false
-            while (res.next())
-            {
-                valueBeforeUpdate = res.getString(1));
-
-            }
-        }
-        catch(Exception e)
-        {
-
-            e.printStackTrace();
-        }
 
         // edit the item
 
@@ -134,25 +143,7 @@ public class opportunitiesTest {
 
         // Database query after the update
 
-
-        try{
-
-            String query = "select opportunityStage from opportunities where oppotunityName =” + uniqueOpportunityName + “‘”;
-            // Get the contents of userinfo table from DB
-            ResultSet res = stmt.executeQuery(query);
-            // Print the result untill all the records are printe
-            // res.next() returns true if there is any next record else returns false
-            while (res.next())
-            {
-                valueAfterUpdate = res.getString(1));
-
-            }
-        }
-        catch(Exception e)
-        {
-
-            e.printStackTrace();
-        }
+        valueAfterUpdate = queryDBForResultSet();
 
         Assert.assertNotEquals(vlueAfterUpdate, valueBeforeUpdate);
         Assert.assertEquals(vlueAfterUpdate, "closed won");
