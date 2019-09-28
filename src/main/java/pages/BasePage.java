@@ -16,10 +16,50 @@ public class BasePage {
         wait = new WebDriverWait(driver,15);
     }
 
+
+    private void clickElementWithMatchingText(By selector, String value){
+
+        List<WebElements> menuDropDownItems = driver.findElements(selector);
+        for(WebElement e: menuDropDownItems){
+            if(e.getAttribute("innerText").contains(value)){
+                    element.click();
+                }
+            }
+        }
+
+
+
+    private void clickElementWithText(By selector, String value){
+
+        List<WebElements> menuDropDownItems = driver.findElements(selector);
+        for(WebElement e: menuDropDownItems){
+            if(e.getText().equalIgnoreCase(value)){
+                element.click();
+            }
+        }
+    }
+
+    private void EnterText(By selector, String value, String valueToEnter){
+
+        List<WebElements> menuDropDownItems = driver.findElements(selector);
+        for(WebElement e: menuDropDownItems){
+            f(e.getAttribute("innerText").contains(value)){
+                element.cleatText();
+                element.sendKeys(valueToEnter);
+            }
+          }
+
+    }
+
     //Wait Wrapper Method
     public void waitVisibility(By elementBy) {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(elementBy));
     }
+
+    public void waitForNoVisibility(By elementBy) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(elementBy));
+    }
+
 
     //Click Method
     public void click (By elementBy) {
@@ -45,4 +85,6 @@ public class BasePage {
         Assert.assertEquals(readText(elementBy), expectedText);
 
     }
+
+
 }
