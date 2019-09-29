@@ -29,15 +29,35 @@ public void setUp() throws Exception {
 
         }
 
-}
+   }
+
+   private static void clearDB(){
+
+        try{
+        // Register JDBC driver
+        Class.forName("com.mysql.jdbc.Driver");
+
+        //Open a connection
+        conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+        //Execute a query
+        stmt = conn.createStatement();
+        String sql = "DELETE FROM tablename WHERE id = idno"
+        stmt.executeUpdate(sql);
+
+        rs.close();
+        }
+
+
+   }
 
 
    private static void InsertToDB() {
         try {
         // create a mysql Database connection
-            String myUrl = "jdbc:mysql://localhost:3306/testDB";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+//            String myUrl = "jdbc:mysql://localhost:3306/testDB";
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
 
         // the mysql insert statement
             String customerInsert = " Insert into customer (custID, Salutation, LastName , PhoneNo, Company) values(?,?,?,?)";
@@ -67,7 +87,10 @@ public void setUp() throws Exception {
             }
        }
 
-        public void closeDBConnection() throws Exception {
+
+
+
+       public void closeDBConnection() throws Exception {
 
         // Close DB connection
 

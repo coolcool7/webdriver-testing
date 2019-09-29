@@ -13,11 +13,14 @@ import utils.Constants;
 /*****************************************************************************
  * Author:      Ratna Janjanam
  * Description:  Test assignment to create a new Opportunity from the UI
- *
+
  *******************************************************************************/
 
 // Data input values is put in constants file under utils
 // DBHelper to help with DB connection and insertions is under utils
+// SetupTest that executes beforeClass , starts DB connection and does the require inserts
+// At the end teardown clears the DB, closes connection .
+
 
 
 public class opportunitiesTest {
@@ -38,7 +41,7 @@ public class opportunitiesTest {
 
 
     //-----------------------------------Test Setup-----------------------------------
-    @BeforeMethod
+    @BeforeClass
     public void setupTest (){
         //Create a new ChromeDriver
         driver = new ChromeDriver();
@@ -160,10 +163,11 @@ public class opportunitiesTest {
 
 
     //-----------------------------------Test TearDown-----------------------------------
-    @AfterMethod
+    @AfterClass
     public void teardownTest (){
         //Close browser and end the session
-        dbHelper.closeDBConnection();  //close the DB connection
+        dbHelper.clearDB();  //clear the data in DB
+        dbHelper.closeDBConnection();
         driver.quit();
 
     }
