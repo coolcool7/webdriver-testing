@@ -81,6 +81,8 @@ public class opportunitiesTest {
       Assert the count is 1,
 
      */
+    // Note: For this scenari, I am using a HashMap to save the test input values and passing it to the test
+    // However Another way to do is reading from Excel file and passing it to TestNG Dataprovider.
 
     @Test
     public void createNewOpportunityTest () {
