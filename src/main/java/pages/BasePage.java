@@ -16,6 +16,9 @@ public class BasePage {
         wait = new WebDriverWait(driver,15);
     }
 
+   // Method gets all the elements with the selector and then looks for the matching inner text attribute
+   // Performs click only on the matching element. This is to handle elements that have the same id but differ in
+    // attribute values
 
     private void clickElementWithMatchingText(By selector, String value){
 
@@ -27,7 +30,8 @@ public class BasePage {
             }
         }
 
-
+    // Method gets all the elements with the selector and then matches the text with the value passed
+    // Performs click only on the matching element
 
     private void clickElementWithText(By selector, String value){
 
