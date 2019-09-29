@@ -41,7 +41,7 @@ public void setUp() throws Exception {
 
         // the mysql insert statement
             String customerInsert = " Insert into customer (custID, Salutation, LastName , PhoneNo, Company) values(?,?,?,?)";
-            String AccountInsert = " Insert into Account (custID, Salutation, LastName , PhoneNo, Company) values(?,?,?,?)";
+            String accountInsert = " Insert into Account (AccountID, AccountName) values(?,?)";
 
         // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(customerInsert);
@@ -50,6 +50,11 @@ public void setUp() throws Exception {
             preparedStmt.setString(3, "<LastName>");
             preparedStmt.setString(4, "<PhoneNo>");
             preparedStmt.setString(5, "<Company>");
+
+            PreparedStatement preparedStmt = conn.prepareStatement(accountInsert);
+            preparedStmt.setString(1, "<ID>");
+            preparedStmt.setString(2, "<AccountName>");
+
 
         // execute the preparedstatement
             preparedStmt.execute();
@@ -60,7 +65,7 @@ public void setUp() throws Exception {
             System.out.println("Got an exception!");
             System.out.println(e.getMessage());
             }
-   }
+       }
 
         public void closeDBConnection() throws Exception {
 
