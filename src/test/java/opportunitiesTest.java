@@ -8,12 +8,17 @@ import pages.LoginPage;
 import pages.OpportunitiesPage;
 import pages.HomePage;
 import utils.DBHelper;
+import utils.Constants;
 
 /*****************************************************************************
  * Author:      Ratna Janjanam
  * Description:  Test assignment to create a new Opportunity from the UI
  *
  *******************************************************************************/
+
+// Data input values is put in constants file under utils
+// DBHelper to help with DB connection and insertions is under utils
+
 
 public class opportunitiesTest {
 
@@ -25,10 +30,11 @@ public class opportunitiesTest {
     private OpportunitiesPage opportunityPage;
     private String uniqueOpportunityName;
     private DBHelper dbhelper = new DBHelper();
+    Constants data = new Constants();
 
 
     //Declare a test URL variable
-    public String testURL = "https://login.salesforce.com/";
+   // public String testURL = "https://login.salesforce.com/";
 
 
     //-----------------------------------Test Setup-----------------------------------
@@ -42,8 +48,8 @@ public class opportunitiesTest {
         dbhelper.insertToDB(); // insertdata into the required tables
 
         //Go to www.swtestacademy.com
-        driver.navigate().to(testURL);
-        HomePage home = loginPage.loginWithValidCredentials("testuser_1", "test123!!")
+        driver.navigate().to(data.URL);
+        HomePage home = loginPage.loginWithValidCredentials(data.username, data.password)
     }
 
 
@@ -93,10 +99,10 @@ public class opportunitiesTest {
         String uniqueTimeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         uniqueOpportunityName = "TestAutomation" + uniqueTimeStamp;
 
-        inputValues.put("stage" , "prospecting");
+        inputValues.put("stage" , data.stageStatus);
         inputValues.put("opportunity name" , uniqueOpportunityName);
-        inputValues.put("account name", "testautomation");
-        inputValues.put("amount", "100");
+        inputValues.put("account name", data.accountName);
+        inputValues.put("amount", data.amount);
         inputValues.put("close date", new SimpleDateFormat("MM.dd.yyyy").format(new Date()));
 
    // Call the methods from HomePage to create a new opportunity
