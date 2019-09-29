@@ -46,6 +46,7 @@ public class opportunitiesTest {
         //Create a new ChromeDriver
         driver = new ChromeDriver();
         LoginPage loginpage = new LoginPage(driver);
+        opportunityPage = new OpportunitiesPage(driver);
 
         dbhelper.setUp();  // establish Db connection
         dbhelper.insertToDB(); // insertdata into the required tables
